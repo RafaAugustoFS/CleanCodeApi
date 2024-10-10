@@ -35,7 +35,7 @@ const userService = {
   },
   getAll: async() =>{
     try {
-        const user = await User.findAll();
+        return await User.findAll();
     } catch (error) {
         throw new Error('Ocorreu um erro ao buscar todos usuários.')
     }

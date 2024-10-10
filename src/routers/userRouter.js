@@ -15,8 +15,8 @@ router.put('/:id',(req, res) =>{
 router.delete('/:id',(req, res) =>{
     userController.delete(req,res)
 } );
-router.get(':id',(req, res) =>{
-    userController.getById(req,res)
+router.get('/:id',(req, res) =>{
+    userController.getOne(req,res)
 } );
 
 module.exports = router;

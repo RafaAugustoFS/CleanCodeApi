@@ -45,9 +45,9 @@ const userController ={
             }) 
         }
     },
-    getById: async(req,res) =>{
+    getOne: async(req,res) =>{
         try {
-            const user = await userService.getById()
+            const user = await userService.getById(req.params.id)
             if(!user){
                 return res.status(400).json({
                     msg: 'User não encontrado!'
@@ -65,17 +65,17 @@ const userController ={
     },
     delete: async(req, res) =>{
         try {
-            const user = await userService.delete()
+            const user = await userService.delete(req.params.id)
             if(!user){
                 return res.status(400).json({
                     msg: 'Usuário não encontrado.',
                 })
             }
-            return res.status(500).json({
+            return res.status(200).json({
                 msg: 'Usuário deletado.',
             })
         } catch (error) {
-            return res.status(200).json({
+            return res.status(500).json({
                 msg: 'Erro ao deletar o usuário.'
             })
         }
