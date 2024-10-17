@@ -6,7 +6,7 @@ const userService = {
     try {
       return await User.create(user);
     } catch (error) {
-      throw new Error("Erro ao cria o usuário");
+      throw new Error("Erro ao criar o usuário");
     }
   },
   update: async (id, userToUpdate) => {
