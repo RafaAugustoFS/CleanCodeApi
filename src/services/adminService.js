@@ -1,13 +1,13 @@
+const jwt = require("jsonwebtoken");
 const Admin = require('../models/user');
 
 const adminService ={
     login: async(admin)=>{
         try {
             const admin = await Admin.findOne({where : { email }});
-            const {email,password} = req.body;
+            const {email,senha} = req.body;
 
-            const token = jwt.sign({ email: user.email, nome: user.nome }, process.env.SECRET, {expiresIn: '1h'});
-            const isValida = await bcrypt.compare(password, user.password);
+            const isValida = await bcrypt.compare(senha, Admin.senha);
 
             if(!admin){
                 return null;
@@ -17,7 +17,8 @@ const adminService ={
                 return null;
             };
 
-            
+            const token = jwt.sign({ email: Admin.email, nome: Admin.nome }, process.env.SECRET, {expiresIn: '1h'});
+            return token;
         } catch (error) {
             throw new Error('Erro ao logar como administrador');
         }
@@ -37,7 +38,7 @@ const adminService ={
     },
     create: async (admin) =>{
         try {
-            return await Admin.create(admin);
+            return await Admin.create();
         } catch (error) {
             throw new Error('Erro ao criar o administrador');
         }

@@ -7,6 +7,14 @@ const router = Router();
 router.post('/', validateAdmin, (req, res) =>{
     adminController.create(req, res)
 })
+
+router.post('/login', validateAdmin, (req, res) =>{
+    adminController.login(req, res)
+})
+
+router.put('/password', validateAdmin, (req, res) =>{
+    adminController.updatePassword(req, res)
+})
  
 router.get('/', (req, res) =>{
     adminController.getAll(req, res)
