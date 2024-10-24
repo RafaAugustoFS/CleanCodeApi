@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const adminController = require("../controllers/adminController");
-const {validateAdmin, validateAdminId} = require('../middlewares/validateAdmin');
+const {validateAdmin, validateAdminId, validateAdminLogin} = require('../middlewares/validateAdmin');
 
 const router = Router();
 
@@ -8,11 +8,11 @@ router.post('/', validateAdmin, (req, res) =>{
     adminController.create(req, res)
 })
 
-router.post('/login', validateAdmin, (req, res) =>{
+router.post('/login', validateAdminLogin, (req, res) =>{
     adminController.login(req, res)
 })
 
-router.put('/password', validateAdmin, (req, res) =>{
+router.put('/password/:id', validateAdminId, (req, res) =>{
     adminController.updatePassword(req, res)
 })
  

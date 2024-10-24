@@ -1,42 +1,43 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
-const Admin = require('../models/user');
+const Admin = require('../models/admin')
 
 const adminService ={
-    login: async(admin)=>{
-        try {
-            const admin = await Admin.findOne({where : { email }});
-            const {email,senha} = req.body;
+    // login: async(admin)=>{
+    //     try {
+    //         const {email,senha} = req.body;
 
-            const isValida = await bcrypt.compare(senha, Admin.senha);
+    //         const admin = await Admin.findOne({where : { email }});
 
-            if(!admin){
-                return null;
-            };
+    //         const isValida = await bcrypt.compare(senha, Admin.senha);
 
-            if(!isValida){
-                return null;
-            };
+    //         if(!admin){
+    //             return null;
+    //         };
 
-            const token = jwt.sign({ email: Admin.email, nome: Admin.nome }, process.env.SECRET, {expiresIn: '1h'});
-            return token;
-        } catch (error) {
-            throw new Error('Erro ao logar como administrador');
-        }
-    },
-    updatePassword: async(id, updatePassword) =>{
-        try {
-            const admin = await Admin.findByPk(id);
-            if(!admin){
-                return null;
-            }
-            await admin.update(updatePassword);
-            await admin.save();
-            return admin;
-        } catch (error) {
-            throw new Error('Erro ao atualizar administrador.')
-        }
-    },
+    //         if(!isValida){
+    //             return null;
+    //         };
+
+    //         const token = jwt.sign({ email: Admin.email, nome: Admin.nome }, process.env.SECRET, {expiresIn: '1h'});
+    //         return token;
+    //     } catch (error) {
+    //         throw new Error('Erro ao logar como administrador');
+    //     }
+    // },
+    // updatePassword: async(id, updatePassword) =>{
+    //     try {
+    //         const admin = await Admin.findByPk(id);
+    //         if(!admin){
+    //             return null;
+    //         }
+    //         await admin.update(updatePassword);
+    //         await admin.save();
+    //         return admin;
+    //     } catch (error) {
+    //         throw new Error('Erro ao atualizar administrador.')
+    //     }
+    // },
     create: async (admin) =>{
         try {
             const senhaCrypto = await bcrypt.hash(admin.senha, 10)
