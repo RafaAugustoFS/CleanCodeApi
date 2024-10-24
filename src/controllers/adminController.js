@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs');
 const adminService = require("../services/adminService");
 
 const adminController = {
@@ -41,16 +40,13 @@ const adminController = {
   },
   create: async (req, res) => {
     try {
-        const { nome, senha, email } = req.body;
-   
-        const hashSenha = await bcrypt.hash(senha, 10);
-   
-        const adminCriado = await adminService.create({ nome, senha: hashSenha, email });
-   
+        const admin = await adminService.create(req.body)
+
         return res.status(200).json({
           msg: "Admin criado com sucesso!",
-          adm: adminCriado,
+          adm: admin,
         });
+
       } catch (error) {
         console.error(error);
         return res.status(500).json({ msg: "Acione o suporte" });

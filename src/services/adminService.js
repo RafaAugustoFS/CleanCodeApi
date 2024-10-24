@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const bcrypt = require('bcryptjs');
 const Admin = require('../models/user');
 
 const adminService ={
@@ -38,7 +39,12 @@ const adminService ={
     },
     create: async (admin) =>{
         try {
-            return await Admin.create();
+            const senhaCrypto = await bcrypt.hash(admin.senha, 10)
+            return await Admin.create({
+                nome: admin.nome,
+                email: admin.email,
+                senha: senhaCrypto
+            });
         } catch (error) {
             throw new Error('Erro ao criar o administrador');
         }
